@@ -4,11 +4,11 @@
     <router-link to="/curiosity">Curiosity</router-link>
     <router-link to="/opportunity">Opportunity</router-link>
     <router-link to="/spirit">Spirit</router-link>
-    <div class="search-container">
+    <div v-if="onRoverPage" class="search-container">
       <input placeholder="Set a custom Sol" type="number" v-model="custom_sol" id="custom_sol">
       <button @click="customSol">Go</button>
     </div>
-    <div class="sol-container" :class="[!infoOpen && 'closed']">
+    <div v-if="onRoverPage" class="sol-container" :class="[!infoOpen && 'closed']">
       <div class="sol-buttons" :class="[!infoOpen && 'closed']">
         <button class="sol-next-btn" @click="nextSol">Next Sol</button>
         <div @click="toggleInfo" class="icon">
@@ -34,6 +34,14 @@ export default {
     return {
       infoOpen: true,
     };
+  },
+  computed: {
+    onRoverPage() {
+      const onCuriosity = this.$route.name === "Curiosity";
+      const onSpirit = this.$route.name === "Spirit";
+      const onOpportunity = this.$route.name === "Opportunity";
+      return onCuriosity || onSpirit || onOpportunity;
+    },
   },
   methods: {
     toggleInfo() {
