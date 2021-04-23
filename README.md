@@ -1,5 +1,12 @@
 # nasa-vue
 
+## About
+
+This project was built to make use of the NASA API available on https://api.nasa.gov/.
+We have a simple vue setup with vuex, vue router and axios.
+
+The site pulls images from 3 different Mars rovers and allows us to browse through them.
+
 ## Project setup
 ```
 npm install
@@ -19,6 +26,3 @@ npm run build
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
