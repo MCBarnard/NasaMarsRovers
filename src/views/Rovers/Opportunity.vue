@@ -6,7 +6,7 @@
         Launched from Earth on <span class="fact">2003-07-07</span> and arrived on <span class="fact">2004-01-25</span>,
         Opportunity has completed <span class="fact">5111</span> Sol's when it came to an end of it's mission on
         the <span class="fact">2018-06-11</span>. Opportunity had 6 Cameras and took a total
-        of <span class="fact">19 8439</span> photos.
+        of <span class="fact">198 439</span> photos.
       </p>
     </div>
     <light-box />
