@@ -26,3 +26,7 @@
     margin: auto;
   }
 }
+.content-home {
+  height: calc(100vh - 48px);
+  overflow: overlay;
+}

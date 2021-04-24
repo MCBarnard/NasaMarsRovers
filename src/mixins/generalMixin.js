@@ -5,7 +5,7 @@ import axios from "axios";
 export const generalMixin = {
   data() {
     return {
-      custom_sol: 0,
+      custom_sol: 1,
     };
   },
   computed: {

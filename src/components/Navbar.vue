@@ -1,14 +1,23 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link>
+    <router-link to="/">Hubble News</router-link>
     <router-link to="/curiosity">Curiosity</router-link>
     <router-link to="/opportunity">Opportunity</router-link>
     <router-link to="/spirit">Spirit</router-link>
     <div v-if="onRoverPage" class="search-container">
-      <input placeholder="Set a custom Sol" type="number" v-model="custom_sol" id="custom_sol">
+      <input
+        placeholder="Set a custom Sol"
+        type="number"
+        v-model="custom_sol"
+        id="custom_sol"
+      />
       <button @click="customSol">Go</button>
     </div>
-    <div v-if="onRoverPage" class="sol-container" :class="[!infoOpen && 'closed']">
+    <div
+      v-if="onRoverPage"
+      class="sol-container"
+      :class="[!infoOpen && 'closed']"
+    >
       <div class="sol-buttons" :class="[!infoOpen && 'closed']">
         <button class="sol-next-btn" @click="nextSol">Next Sol</button>
         <div @click="toggleInfo" class="icon">
@@ -17,7 +26,8 @@
       </div>
       <div class="extra-info" :class="[!infoOpen && 'closed']">
         <h3>What is Sol?</h3>
-        Sol is a NASA term for Solar day and is essentially used by the planetary scientists.
+        Sol is a NASA term for Solar day and is essentially used by the
+        planetary scientists.
         <h4>You are viewing sol {{ sol }}</h4>
       </div>
     </div>
@@ -29,7 +39,7 @@ import { generalMixin } from "../mixins/generalMixin";
 
 export default {
   name: "Navbar",
-  mixins: [ generalMixin ],
+  mixins: [generalMixin],
   data() {
     return {
       infoOpen: true,
@@ -53,20 +63,20 @@ export default {
 
 <style scoped>
 .sol-next-btn {
-  display:inline-block;
-  padding:0.7em 1.4em;
-  outline: none!important;
-  border-radius:0.15em;
+  display: inline-block;
+  padding: 0.7em 1.4em;
+  outline: none !important;
+  border-radius: 0.15em;
   box-sizing: border-box;
-  text-decoration:none;
-  font-family:'Roboto',sans-serif;
-  text-transform:uppercase;
-  font-weight:400;
-  color:#FFFFFF;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: #ffffff;
   background-color: #0b3d91;
-  box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
-  text-align:center;
-  position:relative;
+  box-shadow: inset 0 -0.6em 0 -0.35em rgba(0, 0, 0, 0.17);
+  text-align: center;
+  position: relative;
   border: none;
   cursor: pointer;
 }
@@ -118,7 +128,7 @@ export default {
   display: flex;
   justify-content: space-between;
 }
-.sol-buttons.closed .icon{
+.sol-buttons.closed .icon {
   transform: rotate(180deg);
 }
 #nav {
@@ -146,7 +156,7 @@ export default {
 }
 
 #nav a.active {
-  background-color: #2196F3;
+  background-color: #2196f3;
   color: white;
 }
 
@@ -154,7 +164,7 @@ export default {
   float: right;
 }
 
-#nav input[type=number] {
+#nav input[type="number"] {
   padding: 6px;
   margin-top: 8px;
   font-size: 17px;
@@ -180,7 +190,9 @@ export default {
   #nav .search-container {
     float: none;
   }
-  #nav a, #nav input[type=number], #nav .search-container button {
+  #nav a,
+  #nav input[type="number"],
+  #nav .search-container button {
     float: none;
     display: block;
     text-align: left;
@@ -188,7 +200,7 @@ export default {
     margin: 0;
     padding: 14px;
   }
-  #nav input[type=number] {
+  #nav input[type="number"] {
     border: 1px solid #ccc;
   }
 }

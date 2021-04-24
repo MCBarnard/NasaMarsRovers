@@ -4,7 +4,11 @@
       <div class="wrapper" :class="[!allImagesLoaded && 'show-above-images']">
         <div class="gallery">
           <div class="show-above-images" v-if="!allImagesLoaded">
-            <Loader />
+            <div class="outer-loader">
+              <Loader />
+              <span class="loading-text">Data received, images are now loading...</span>
+              <span @click="skipImageLoading = true" class="loading-abort">Skip Waiting for images</span>
+            </div>
           </div>
           <div v-for="(item, index) in images" :id="index + '_image_id'"  :key="index" class="image">
             <div class="image-container">
@@ -40,7 +44,16 @@
               >
                 <md-icon>arrow_forward_ios</md-icon>
               </div>
-              <img :class="[showLightBoxImageData && 'hide']" :src="images[current].img_src" alt="" />
+              <img @load="lightboxImageLoaded = true" :class="[showLightBoxImageData && 'hide']" :src="images[current].img_src" alt="" />
+              <div v-if="!lightboxImageLoaded" class="not-loaded-overlay">
+                <div class="outer-loader" >
+                  <Loader />
+                  <span class="loading-text">Loading Image...</span>
+                </div>
+              </div>
+              <a :href="images[current].img_src" download target="_blank" :class="[showLightBoxImageData && 'hide']" class="download-button">
+                <md-icon>file_download</md-icon>
+              </a>
               <div :class="[showLightBoxImageData && 'hide']" @click="toggleData" class="info-button">
                 <md-icon>data_exploration</md-icon>
               </div>
@@ -55,7 +68,16 @@
         </div>
       </div>
     </div>
-    <Loader v-else />
+    <div v-else>
+      <div class="outer-loader" v-if="loaded && totalImages === 0">
+        <Loader />
+        <span class="loading-text">No Images to display</span>
+      </div>
+      <div class="outer-loader" v-else>
+        <Loader />
+        <span class="loading-text">Fetching Data...</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -72,10 +94,15 @@ export default {
       showLightbox: false,
       totalLoaded: 0,
       showLightBoxImageData: false,
+      skipImageLoading: false,
+      lightboxImageLoaded: false,
     };
   },
   computed: {
     allImagesLoaded() {
+      if(this.skipImageLoading) {
+        return true;
+      }
       return this.totalLoaded === this.totalImages;
     },
     totalImages() {
@@ -96,15 +123,21 @@ export default {
       this.totalLoaded++;
     },
     toggleLightbox(index) {
+      this.lightboxImageLoaded = false;
+      if(this.totalLoaded !== this.totalImages) {
+        return;
+      }
       this.current = index;
       this.showLightbox = !this.showLightbox;
     },
     togglePreviewRight() {
+      this.lightboxImageLoaded = false;
       if (this.totalImages !== this.current - 1) {
         this.current++;
       }
     },
     togglePreviewLeft() {
+      this.lightboxImageLoaded = false;
       if (this.totalImages !== 0) {
         this.current--;
       }
@@ -122,6 +155,38 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.download-button {
+  position: absolute;
+  right: 100px;
+  top: 14px;
+  cursor: pointer;
+  i.md-icon {
+    color: #149fd6 !important;
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+.close-click {
+  .md-icon {
+    color: #ff0000!important;
+  }
+}
+.not-loaded-overlay {
+  width: 100%;
+  margin: auto;
+  height: calc(100% - 35px);
+  background: #ffffff;
+  position: absolute;
+  top: 35px;
+  left: 0;
+  z-index: 2;
+  .outer-loader .loading-text {
+    top: 69%;
+  }
+
+}
 .img-data {
   width: 80%;
   margin: auto;
@@ -148,12 +213,15 @@ export default {
 .img-data.hide {
   display: none;
 }
-
 .info-button {
   position: absolute;
   right: 55px;
   top: 12px;
   cursor: pointer;
+
+  .md-icon {
+    color: #ffd500!important;
+  }
 }
 .info-button.hide {
   display: none;
@@ -187,11 +255,9 @@ export default {
     outline: 1px solid slategrey;
   }
 }
-
 .wrapper.show-above-images {
   overflow: hidden;
 }
-
 .gallery {
   display: flex;
   flex-wrap: wrap;
@@ -216,7 +282,6 @@ export default {
     }
   }
 }
-
 .preview-box {
   z-index: 10;
   position: fixed;
@@ -239,6 +304,7 @@ export default {
     padding: 12px 15px 12px 10px;
     flex-direction: column;
     max-height: 800px;
+    position: relative;
 
     i {
       color: #007bff;
@@ -272,6 +338,7 @@ export default {
     width: 100%;
     max-height: 850px;
     overflow-y: scroll;
+    min-height: 565px;
 
     img {
       object-fit: contain;
@@ -313,7 +380,6 @@ export default {
     }
   }
 }
-
 .preview-box__wrapper {
   position: absolute;
   width: 100%;
@@ -333,7 +399,6 @@ export default {
   opacity: 1;
   pointer-events: all;
 }
-
 .show-above-images {
   position: absolute;
   right: 0;
@@ -342,7 +407,6 @@ export default {
   background: #fafafa;
   height: 700px;
 }
-
 @media (max-width: 1000px) {
   .gallery {
     .image {
@@ -350,7 +414,6 @@ export default {
     }
   }
 }
-
 @media (max-width: 600px) {
   .gallery {
     .image {
@@ -358,5 +421,22 @@ export default {
       width: 100%;
     }
   }
+}
+.outer-loader {
+  .loading-text {
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.loading-abort {
+  position: absolute;
+  top: 4px;
+  right: 12px;
+  color: crimson;
+  font-size: 12px;
+  cursor: pointer;
 }
 </style>

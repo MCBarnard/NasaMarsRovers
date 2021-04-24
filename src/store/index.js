@@ -5,6 +5,10 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    hubble: {
+      news_url: "http://hubblesite.org/api/v3/news",
+      article_url: "http://hubblesite.org/api/v3/news_release/",
+    },
     nasa_key: "cgQflXxL70YMY4eaYdE1ZK6udOvikEqDYnkF41kK",
     // nasa_key: "DEMO_KEY",
     nasa_rover: "",
@@ -37,6 +41,8 @@ export default new Vuex.Store({
     photoPage: 1,
   },
   getters: {
+    getHubbleNewsUrl: (state) => state.hubble.news_url,
+    getHubbleArticleUrl: (state) => state.hubble.article_url,
     getSol: (state) => state.sol,
     getPictures: (state) => state.pictures,
     getError: (state) => state.error,
