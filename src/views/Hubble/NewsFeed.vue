@@ -93,6 +93,8 @@ export default {
         });
         this.loading = false;
       }
+    }).catch(() => {
+      console.log("Caught");
     });
     // console.log(this.articles);
     // this.loading = false;
