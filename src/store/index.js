@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    protocal: window.location.protocol,
+    protocol: window.location.protocol,
     hubble: {
       news_url: "http://hubblesite.org/api/v3/news",
       article_url: "http://hubblesite.org/api/v3/news_release/",
@@ -42,7 +42,7 @@ export default new Vuex.Store({
     photoPage: 1,
   },
   getters: {
-    getProtocol: (state) => state.protocal,
+    getProtocol: (state) => state.protocol,
     getHubbleNewsUrl: (state) => state.hubble.news_url,
     getHubbleArticleUrl: (state) => state.hubble.article_url,
     getSol: (state) => state.sol,

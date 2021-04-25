@@ -1,7 +1,7 @@
 <template>
   <div id="nav">
     <router-link to="/">
-      {{ this.$store.getters.getProtocol === "http://" ? 'Hubble News' : "Home" }}
+      {{ this.$store.getters.getProtocol === "http:" ? 'Hubble News' : "Home" }}
     </router-link>
     <router-link to="/curiosity">Curiosity</router-link>
     <router-link to="/opportunity">Opportunity</router-link>

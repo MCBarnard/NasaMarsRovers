@@ -39,7 +39,7 @@ export default {
     };
   },
   beforeMount() {
-    if (this.$store.getters.getProtocol !== "http://") {
+    if (this.$store.getters.getProtocol !== "http:") {
       this.cantLoadHome = true;
     }
     const randomInt = Math.floor(Math.random() * this.roverImageArray.length);
