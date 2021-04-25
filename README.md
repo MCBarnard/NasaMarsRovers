@@ -2,14 +2,14 @@
 
 ## About
 
-This project was built to make use of the NASA API available on https://api.nasa.gov/.
+This project was built to make use of a NASA API available on https://api.nasa.gov/.
 We have a simple vue setup with vuex, vue router and axios.
 
 The site pulls images from 3 different Mars rovers and allows us to browse through them.
 
 ## Demo
 
-Visit https://nasa-mars-rover.web.app/
+Visit https://nasa-thinus.web.app/
 
 ## Project setup
 ```
