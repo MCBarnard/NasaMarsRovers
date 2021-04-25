@@ -72,28 +72,27 @@ export default {
   },
   async mounted() {
     const jsonp = require("jsonp");
-    try {
-      await jsonp(this.$store.getters.getHubbleNewsUrl, null, (err, data) => {
-        if (err) {
-          console.error(err.message);
-        } else {
-          data.forEach((article) => {
-            jsonp(this.$store.getters.getHubbleArticleUrl + article.news_id, null, (error, response) => {
-              if (error) {
-                console.error(error.message);
-              } else {
-                this.articles.push(response);
-              }
-            });
+    await jsonp(this.$store.getters.getHubbleNewsUrl, null, (err, data) => {
+      if (err) {
+        console.error(err.message);
+        this.$emit("cantLoadData");
+      } else {
+        data.forEach((article) => {
+          jsonp(this.$store.getters.getHubbleArticleUrl + article.news_id, null, (error, response) => {
+            if (error) {
+              console.error(error.message);
+              this.$emit("cantLoadData");
+            } else {
+              this.articles.push(response);
+            }
           });
-          console.log(this.articles);
-          this.loading = false;
-        }
-      });
-    } catch (e) {
-      this.$emit("cantLoadData");
-      this.loading = false;
-    }
+        });
+        console.log(this.articles);
+        this.loading = false;
+      }
+    });
+    // console.log(this.articles);
+    // this.loading = false;
   },
 };
 </script>
