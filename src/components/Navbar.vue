@@ -1,6 +1,8 @@
 <template>
   <div id="nav">
-    <router-link to="/">Hubble News</router-link>
+    <router-link to="/">
+      {{ this.$store.getters.getProtocol === "http://" ? 'Hubble News' : "Home" }}
+    </router-link>
     <router-link to="/curiosity">Curiosity</router-link>
     <router-link to="/opportunity">Opportunity</router-link>
     <router-link to="/spirit">Spirit</router-link>

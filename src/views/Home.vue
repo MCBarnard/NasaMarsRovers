@@ -39,8 +39,7 @@ export default {
     };
   },
   beforeMount() {
-    const protocol = window.location.protocol;
-    if (protocol !== "http://") {
+    if (this.$store.getters.getProtocol !== "http://") {
       this.cantLoadHome = true;
     }
     const randomInt = Math.floor(Math.random() * this.roverImageArray.length);
