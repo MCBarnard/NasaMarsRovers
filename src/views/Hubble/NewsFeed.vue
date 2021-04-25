@@ -75,11 +75,13 @@ export default {
     await jsonp(this.$store.getters.getHubbleNewsUrl, null, (err, data) => {
       if (err) {
         console.error(err.message);
+        console.log("78")
         this.$emit("cantLoadData");
       } else {
         data.forEach((article) => {
           jsonp(this.$store.getters.getHubbleArticleUrl + article.news_id, null, (error, response) => {
             if (error) {
+              console.log("84")
               console.error(error.message);
               this.$emit("cantLoadData");
             } else {
