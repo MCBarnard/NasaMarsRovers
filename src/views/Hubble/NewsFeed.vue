@@ -73,17 +73,13 @@ export default {
   async mounted() {
     const jsonp = require("jsonp");
     await jsonp(this.$store.getters.getHubbleNewsUrl, null, (err, data) => {
-      console.log(data)
-      console.log(err)
       if (err) {
         console.error(err.message);
-        console.log("78")
         this.$emit("cantLoadData");
       } else {
         data.forEach((article) => {
           jsonp(this.$store.getters.getHubbleArticleUrl + article.news_id, null, (error, response) => {
             if (error) {
-              console.log("84")
               console.error(error.message);
               this.$emit("cantLoadData");
             } else {
@@ -91,13 +87,10 @@ export default {
             }
           });
         });
+        console.log(this.articles);
         this.loading = false;
       }
-    }).catch(() => {
-      console.log("Caught");
     });
-    // console.log(this.articles);
-    // this.loading = false;
   },
 };
 </script>

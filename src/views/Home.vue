@@ -39,6 +39,10 @@ export default {
     };
   },
   beforeMount() {
+    const protocol = window.location.protocol;
+    if (protocol !== "http://") {
+      this.cantLoadHome = true;
+    }
     const randomInt = Math.floor(Math.random() * this.roverImageArray.length);
     this.roverImage = this.roverImageArray[randomInt];
   },
