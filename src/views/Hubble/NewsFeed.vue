@@ -73,6 +73,8 @@ export default {
   async mounted() {
     const jsonp = require("jsonp");
     await jsonp(this.$store.getters.getHubbleNewsUrl, null, (err, data) => {
+      console.log(data)
+      console.log(err)
       if (err) {
         console.error(err.message);
         console.log("78")
@@ -89,7 +91,6 @@ export default {
             }
           });
         });
-        console.log(this.articles);
         this.loading = false;
       }
     });
